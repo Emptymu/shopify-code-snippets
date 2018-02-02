@@ -4,7 +4,7 @@ This snippets uses jQuery and [handlebars.js](http://handlebarsjs.com/) to build
 
 e.g.
 
-```
+```javascript
 	theme.RecentlyViewed.setup({
 		currentProduct: this.config.productId,
 		limit: 5,
@@ -37,7 +37,7 @@ With this helper, we use chainable methods to manipulate `String` and `Array` da
 
 e.g.
 
-```
+```javascript
   var recentlyViewed = [1, 2, 3];
   recentlyViewed = new theme.Line(recentlyViewed).remove(2).push(4).fold(); // [1, 3, 4]
 ```
