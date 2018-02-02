@@ -1,6 +1,6 @@
 # Recently Viewed
 
-This snippets uses jQuery and [handlebars.js](http://handlebarsjs.com/) to build a recently viewed products section.
+This snippet uses jQuery and [handlebars.js](http://handlebarsjs.com/) to build a recently viewed products section.
 
 e.g.
 
@@ -29,9 +29,9 @@ e.g.
 	});
 ```
 
-# Some Helpers used in this snippets
+## Some Helpers used in this snippet
 
-## `theme.Line`
+### theme.Line
 
 With this helper, we use chainable methods to manipulate `String` and `Array` data
 
@@ -42,22 +42,22 @@ e.g.
   recentlyViewed = new theme.Line(recentlyViewed).remove(2).push(4).fold(); // [1, 3, 4]
 ```
 
-## `theme.Storage`
+### theme.Storage
 
-### Set item:
+#### Set item:
 
 `theme.Storage.set(key, value, expiration)`
 
-### Get Item:
+#### Get Item:
 
 `theme.Storage.get(key)`
 
 Will return `null` if the item doesn't exist or has expired.
 
-### Remove Item:
+#### Remove Item:
 
 `theme.Storage.remove(key)`
 
-# Check Expiration:
+#### Check Expiration:
 
 `theme.Storage.checkExpiration(key)`
