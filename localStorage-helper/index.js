@@ -4,7 +4,6 @@
  */
 
 theme.Storage = (function() {
-  
   var set = function(key, value, expiration) {
     var _value = {
       value: value,
