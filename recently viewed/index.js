@@ -337,104 +337,91 @@ theme.Storage = (function () {
   Recently viewed products
 ==============================================================================*/
 theme.RecentlyViewed = (function () {
-	var recentlyViewed = [];
-	var settings;
+	var recentlyViewed = [],
+		settings;
 
-	/**
-	 * Setup recently viewed
-	 * 
-	 * @param {Object} config - All the settings we need to init the recently viewed
-	 * @param {Number} config.currentProduct - The product we are currently viewing
-	 * @param {Number} config.limit          - The maxmum quantity of our recently viewed products
-	 * @param {String} config.gridWidth      - The width helper class e.g. `one-fifth`
-	 * @param {String} config.imageSize      - The product grid image size e.g. `500x500`
-	 * @param {String} config.container      - The css selector of the recently viewed container
-	 * @param {String} config.source         - The css selector of the handlebars template
-	 * 
-	 * @param {Function} finalCallback - A callback function that will be called after the recently viewed section is rendered, accepts `$(config.container)` as an argument
-	 */
-
-	var setup = function (config, finalCallback) {
+	// Export this for setup
+	var setup = function (config, cb) {
 		init(config);
-		getProducts(finalCallback);
+		renderProducts(cb);
 		update();
 	}
 
-	// Init settings for internal use
-	// Init recently viwed localstorage data if doesn't exist
 	var init = function (config) {
+		// init localstorage recently viwed if doesn't exist 
 		if (!theme.Storage.get('shopifyRecentlyViewed-vapeworld')) {
 			theme.Storage.set('shopifyRecentlyViewed-vapeworld', []);
 		}
 
 		recentlyViewed = theme.Storage.get('shopifyRecentlyViewed-vapeworld');
+
+		// init settings for internal use
 		settings = config;
 	}
 
-	// Get recently viewed products data from the Shopify API
-	var getProducts = function (cb) {
-		// if recently viewed is empty, do nothing
-		if (!recentlyViewed.length) { return; }
-
-		// if recently viewed is not empty, render the view 
-		var url = '{{shop.domin}}/admin/products.json?ids=' + recentlyViewed.join(',');
-
-		ShopifyAPI.getProducts(url, function (data) {
-			formatData(data, cb);
-		});
-	}
-
-	// Render view template using the returned data
-	var renderTemplate = function (context, cb) {
-		var template = Handlebars.compile($(settings.source).html()),
-			html = template(context),
-			$container = $(settings.container);
-
-		$container.append(html);
-
-		if (cb) { cb($container); }
-	}
-
-	// Build the context for the render method
-	var formatData = function (data, cb) {
+	var renderProducts = function (cb) {
 		var context = {
 			products: [],
 			gridWidth: settings.gridWidth
-		};
+		},
+			apiCalls = [];
 
-		$.each(data.products, function (i, product) {
-			// get product quantity to decide availability
-			var quantity = product.variants.reduce(function (prevQty, variant) {
-				return prevQty += variant.inventory_quantity;
-			}, 0);
+		// if recently viewed is empty, do nothing
+		if (!recentlyViewed.length) { return; }
 
-			// product data going to be pushed into context.products
-			var productData = {
-				url: "https://vapeworld-store.myshopify.com/products/" + product.handle,
-				image: product.image ? theme.Images.getSizedImageUrl(product.image.src, settings.imageSize) : 'https://acp-magento.appspot.com/images/missing.gif',
-				title: product.title,
-				available: quantity > 0 ? true : false
-			}
+		for (var i = 0; i < recentlyViewed.length; i++) {
+			var url = '/products/' + recentlyViewed[i] + '.json';
+			apiCalls.push(ShopifyAPI.getProducts(url, formatData.bind(context)));
+		}
 
-			context.products.push(productData);
-		});
+		jQuery.when.apply(null, apiCalls)
+			.then(function () {
+				var template = Handlebars.compile($(settings.source).html()),
+					html = template(context),
+					$container = $(settings.container);
 
-		renderTemplate(context, cb);
+				$container.append(html);
+
+				// Call the call back
+				if (typeof cb === 'function') {
+					cb($container);
+				}
+			});
 	}
 
-	// Update local storage data
+	// Build context data
+	var formatData = function (data) {
+		var product = data.product;
+
+		// get product quantity to decide availability
+		var quantity = product.variants.reduce(function (prevQty, variant) {
+			return prevQty += variant.inventory_quantity;
+		}, 0);
+
+		// product data going to be pushed into context.products
+		var productData = {
+			url: "https://vapeworld-store.myshopify.com/products/" + product.handle,
+			image: product.image ? theme.Images.getSizedImageUrl(product.image.src, settings.imageSize) : 'https://acp-magento.appspot.com/images/missing.gif',
+			title: product.title,
+			available: true
+		}
+
+		this.products.push(productData);
+	}
+
+	// Update local storage with the current viewing product
 	var update = function () {
-		var productId = settings.currentProduct;
+		var productHandle = settings.currentProduct;
 		var limit = settings.limit ? settings.limit : 5;
-		var currentIndex = recentlyViewed.indexOf(productId);
+		var currentIndex = recentlyViewed.indexOf(productHandle);
 
 		// add product, if it's not in the current record
 		if (currentIndex == -1) {
-			recentlyViewed.push(productId);
+			recentlyViewed.push(productHandle);
 			// put the item to the last, if it's in the record and not the last one
 			// do nothing if the item is the last one in the record
 		} else if (currentIndex != limit - 1) {
-			recentlyViewed = new theme.Line(recentlyViewed).remove(productId).push(productId).fold();
+			recentlyViewed = new theme.Line(recentlyViewed).remove(productHandle).push(productHandle).fold();
 		}
 
 		// limit how many products we record
