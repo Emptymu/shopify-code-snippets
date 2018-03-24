@@ -13,7 +13,7 @@ ShopifyAPI.getProducts = function (url, callback) {
 			}
 		},
 		fail: function (jqXHR, textStatus) {
-			ShopifyAPI.onError(jqXHR, textStatus);
+			console.log(textStatus);
 		},
 		dataType: 'json'
 	};
