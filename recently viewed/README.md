@@ -15,17 +15,7 @@ e.g.
 
 		// callback function
 	}, function($container) {
-		var $slideshow = $container.find('.product-single__recently-viewed .slideshow');
-		// init recently viewed slider using slick slider
-		$slideshow.slick({
-			accessibility: true,
-			arrows: true,
-			infinite: true,
-			dots: false,
-			slidesToShow: 3,
-			slidesToScroll: 3,
-			autoplay: false
-		});
+		// do more stuff
 	});
 ```
 
