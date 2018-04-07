@@ -6,7 +6,8 @@ Based on:
 
 - https://github.com/lodash/lodash/issues/2718
 
-Parse "key: value, key: value..." and return object.
+Parse `"key: value, key: value..."` and return `object`.
+
 `theme.parseData("foo: 1, bar: 2")` returns `{ foo:1, bar:2 }`
 
 Example usage:
