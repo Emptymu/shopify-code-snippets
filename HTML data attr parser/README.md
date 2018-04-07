@@ -5,9 +5,11 @@ Based on:
 - https://github.com/vodkabears/Remodal
 - https://github.com/lodash/lodash/issues/2718
 
-Parse `"key: value, key: value..."` and return `object`.
 
-`theme.parseData("foo: 1, bar: 2")` returns `{ foo:1, bar:2 }`
+##parseData(str)
+
+- str `<string> - "key:value" pairs separated by comma, "key_1: value_1, key_2: value_2..."`
+- Returns: `<object>`
 
 Example usage:
 
@@ -37,7 +39,7 @@ var settings = {
 };
 
 // Parse settings
-var customSettings = theme.parseData($('.slideshow').data('slideshowSettings'));
+var customSettings = parseData($('.slideshow').data('slideshowSettings'));
 
 // extend settings
 $.extend(settings, customSettings);
