@@ -6,9 +6,9 @@ Based on:
 - https://github.com/lodash/lodash/issues/2718
 
 
-##parseData(str)
+## parseData(str)
 
-- str `<string> - "key:value" pairs separated by comma, "key_1: value_1, key_2: value_2..."`
+- str `<string>` - "key:value" pairs separated by comma, "key_1: value_1, key_2: value_2..."
 - Returns: `<object>`
 
 Example usage:
