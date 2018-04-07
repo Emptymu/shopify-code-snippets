@@ -3,7 +3,6 @@
 Based on:
 
 - https://github.com/vodkabears/Remodal
-
 - https://github.com/lodash/lodash/issues/2718
 
 Parse `"key: value, key: value..."` and return `object`.
