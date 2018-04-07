@@ -21,26 +21,24 @@ Example usage:
 </div>
 ```
 
-
 ```javascript
+var settings = {
+    accessibility: true,
+    autoplay: false,
+    arrows: true,
+    infinite: true,
+    dots: this.slideSettings.showDots,
+    speed: 300,
+    slidesToShow: this.slideSettings.slidesToShow,
+    slidesToScroll: this.slideSettings.slidesToScroll
+};
 
-    var settings = {
-        accessibility: true,
-        autoplay: false,
-        arrows: true,
-        infinite: true,
-        dots: this.slideSettings.showDots,
-        speed: 300,
-        slidesToShow: this.slideSettings.slidesToShow,
-        slidesToScroll: this.slideSettings.slidesToScroll
-    };
+// Parse settings
+var customSettings = theme.parseData($('.slideshow').data('slideshowSettings'));
 
-    // Parse settings
-    var customSettings = theme.parseData($('.slideshow').data('slideshowSettings'));
+// extend settings
+$.extend(settings, customSettings);
 
-    // extend settings
-    $.extend(settings, customSettings);
-
-    // init slider
-    $('.slideshow').slick(settings);
+// init slider
+$('.slideshow').slick(settings);
 ```
