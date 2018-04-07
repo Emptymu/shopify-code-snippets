@@ -18,7 +18,6 @@ ShopifyAPI.getProducts = function (url, callback) {
 		dataType: 'json'
 	};
 
-	// make this function thenable
 	return jQuery.when(jQuery.ajax(params));
 }
 
