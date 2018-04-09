@@ -1,4 +1,4 @@
-# Ajax cart
+# Ajax Cart
 
 This is based on [Timber Ajax cart](https://github.com/Shopify/Timber/blob/master/assets/ajax-cart.js.liquid) and requires:
 
@@ -7,6 +7,7 @@ This is based on [Timber Ajax cart](https://github.com/Shopify/Timber/blob/maste
 - modernizr.min.js
 - snippet/ajax-cart-template.liquid
 
+There isn't a style sheet for `ajax-cart-template.liquid`. This is just for the purpose of demonstration.
 
 
 ## 1. Trigger events before and after every Ajax call
@@ -31,7 +32,7 @@ ShopifyAPI.addItemFromForm()
 
 Just like `Promise.all()`
 
-We can execute callbacks based on mutiple Ajax calls.
+We can execute callbacks based on multiple Ajax calls.
 
 Example usage:
 ```javascript
