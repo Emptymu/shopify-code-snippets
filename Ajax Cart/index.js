@@ -203,7 +203,7 @@ ShopifyAPI.getCart = function (callback, errorCallback) {
                 $body.trigger('errorGetCart.ajaxCart', [XMLHttpRequest, textStatus]);
             },
             complete: function (cart) {
-                $body.trigger('afterGetCart.ajaxCart', [this, cart]);
+                $body.trigger('completeGetCart.ajaxCart', [this, cart]);
             }
         };
 
@@ -227,6 +227,8 @@ ShopifyAPI.updateCart = function (data, callback, errorCallback) {
                 if (typeof callback === 'function') {
                     callback(cart);
                 }
+
+                $body.trigger('afterUpdateItems.ajaxCart', caert);
             },
             error: function (XMLHttpRequest, textStatus) {
                 if ((typeof errorCallback) === 'function') {
@@ -260,6 +262,8 @@ ShopifyAPI.changeItem = function (line, quantity, callback, errorCallback) {
                 if ((typeof callback) === 'function') {
                     callback(cart);
                 }
+
+                $body.trigger('afterChangeItem.ajaxCart', [line, quantity]);
             },
             error: function (XMLHttpRequest, textStatus) {
                 if ((typeof errorCallback) === 'function') {
