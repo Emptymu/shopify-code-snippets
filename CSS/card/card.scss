@@ -1,0 +1,130 @@
+/*================ Card ================*/
+
+// Vertical Card
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.card__image-wrapper {
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  a {
+    display: block;
+  }
+
+  img {
+    display: block; // to remove gap at the bottom
+    width: 100%;
+  }
+}
+
+// 16:9 ratio container for videos
+.card__video-wrapper {
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  iframe,
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  video {
+    -o-object-fit: cover;
+      object-fit: cover;
+  }
+}
+
+.card__meta {
+  padding: 12px 24px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+// Horizontal card
+
+.card--horizontal {
+ display: -webkit-box;
+ display: -ms-flexbox;
+ display: flex;
+
+  &.card--align-top {
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+
+  &.card--align-center {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
+  &.card--align-bottom {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+}
+
+// Overlay card
+// This is actually a ratio container with it's children absolutely positioned
+
+.card--overlay {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-top: 80%;
+  }
+
+  &.card--square::before {
+    padding-top: 100%;
+  }
+
+  .card__image-wrapper,
+  .card__video-wrapper,
+  .card__meta {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card__meta {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
