@@ -1,0 +1,34 @@
+$font-family-data: ("body" "Raleway", "header" "Futura");
+
+$font-weight-data: (
+  "thin"        100,
+  "extra-light" 200,
+  "light"       300,
+  "normal"      400,
+  "medium"      500,
+  "bold"        700,
+  "semi-bold"   600,
+  "extra-bold"  800,
+  "black"       900
+);
+
+@function family($type) {
+  $fetched-value: get-list-value($font-family-data, $type);
+
+  @if type-of($fetched-value) == string {
+    @return $fetched-value, "HelveticaNeue", "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+  } @else {
+    @return "";
+  }
+}
+
+@function weight($type) {
+  $fetched-value: get-list-value($font-weight-data, $type);
+
+  @if type-of($fetched-value) == number {
+    @return $fetched-value;
+  } @else {
+    @return "";
+  }
+}

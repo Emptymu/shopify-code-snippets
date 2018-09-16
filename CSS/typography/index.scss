@@ -1,0 +1,24 @@
+@import url("./font-face.scss");
+@import url("./typography.scss");
+
+// Raleway normal
+body {
+  font-family: family(body);
+  font-weight: weight(normal);
+}
+
+// Futura Bold
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: family(body);
+  font-weight: weight(bold);
+}
+
+// Raleway Light Italic
+a {
+  font-weight: weight(light);
+  font-style: italic;
+}
