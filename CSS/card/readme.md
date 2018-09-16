@@ -11,4 +11,4 @@ Check out this [example](https://shop.urb-e.com/?fts=0&preview_theme_id=12543754
 - When you hover on it, you'll notice there are hidden layers (video/text).
 - If you resize the browser to under 768px, they become static verticaly stacked cards.
 
-I used a little bit JS to help me switch classes based on breakpoints. But all the style/animatin is in pure CSS. With Shopify's templating system, this component is very helpful.
+I used a little bit JS to help me play/pause videos and switch classes based on breakpoints. But all the style/animatin is in pure CSS. With Shopify's templating system, this component is very helpful.
