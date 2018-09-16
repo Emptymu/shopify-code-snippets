@@ -1,0 +1,12 @@
+@import url("flex-mixins.scss");
+@import url("flex-helpers.scss");
+
+// Display flex using mixin
+.foo {
+  @include display-flex();
+}
+
+// Display flex and direction column using helper class
+.bar {
+  @extend .flex--column;
+}
