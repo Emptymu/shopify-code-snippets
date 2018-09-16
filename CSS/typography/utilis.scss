@@ -1,0 +1,11 @@
+@function get-list-value($list, $key) {
+  $value: null;
+
+  @each $pair in $list {
+    @if $key == nth($pair, 1) {
+      $value: nth($pair, 2)
+    }
+  }
+
+  @return $value;
+}

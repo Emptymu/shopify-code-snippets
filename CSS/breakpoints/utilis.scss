@@ -1,0 +1,33 @@
+@function strip-units($value) {
+  @return ($value / ($value * 0 + 1));
+}
+
+@function em($pxval, $base: 16px) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+  @return ($pxval / $base) * 1em;
+}
+
+@function rem($pxval) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+
+  @return ($pxval / 16) * 1rem;
+}
+
+@function get-list-value($list, $key) {
+  $value: null;
+
+  @each $pair in $list {
+    @if $key == nth($pair, 1) {
+      $value: nth($pair, 2)
+    }
+  }
+
+  @return $value;
+}
