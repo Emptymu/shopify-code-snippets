@@ -1,11 +1,20 @@
 @import url('./utilis.scss');
 @import url('./breakpoints.scss');
 
-// Under 2014px, set a max-width
+// Under 2013.84px, set a max-width
 .foo {
   width: 100%;
 
   @include media-query($medium-down) {
     max-width: 480px;
+  }
+}
+
+// Background lightblue 480px ~ 767.84px
+.bar {
+  background-color: tomato;
+
+  @include media-query($small) {
+    background-color: lightblue;
   }
 }
