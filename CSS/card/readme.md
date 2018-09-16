@@ -6,4 +6,5 @@
 - Different style/display based on breakpoints
 - ...
 
-Check out this [example](https://shop.urb-e.com/?fts=0&preview_theme_id=12543754285) to see what I've made with it.
+Check out this [example](https://shop.urb-e.com/?fts=0&preview_theme_id=12543754285) to see what I've made with it. If you scroll down to the bottom, you will see this ![section]:
+(https://github.com/Emptymu/shopify-code-snippets/blob/master/CSS/card/example.png)
