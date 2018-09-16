@@ -1,0 +1,10 @@
+@import url('./breakpoints.scss');
+
+// Under 2014px, set a max-width
+.foo {
+  width: 100%;
+
+  @include media-query($medium-down) {
+    max-width: 480px;
+  }
+}

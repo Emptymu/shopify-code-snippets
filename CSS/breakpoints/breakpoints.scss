@@ -1,0 +1,77 @@
+/*============================================================================
+  Grid Breakpoints and Class Names
+    - Do not change the variable names
+==============================================================================*/
+
+@function breakpoint($value, $adjustment: 0) {
+  $adjusted-value: em($adjustment);
+
+  // Reduces chances to have a style void
+  // between two media queries
+  // See https://github.com/sass-mq/sass-mq/issues/6
+  @if ($adjustment == -1px) {
+    $adjusted-value: -0.01em;
+  } @else if ($adjustment == 1px) {
+    $adjusted-value: 0.01em;
+  }
+
+  $adjusted-value: em($value) + $adjusted-value;
+
+  @return $adjusted-value;
+}
+
+$grid-small:      480px;
+$grid-medium:     768px;
+$grid-large:      1024px;
+$grid-widescreen: 1280px;
+
+$xs: 'xs';                        // 0 ~ 479
+$small-up: 'small-up';            // 480 ~ ...
+$small: 'small';                  // 480 ~ 767
+$small-down: 'small-down';        // 0 ~ 767
+$medium-up: 'medium-up';          // 768 ~ ...
+$medium: 'medium';                // 768 ~ 1024
+$medium-down: 'medium-down';      // 0 ~ 1023
+$large-up: 'large-up';            // 1024 ~ ...
+$large: 'large';                  // 1024 ~ 1279
+$large-down: 'large-down';        // 0 ~ 1279
+$medium-large: 'medium-large';    // 768 ~ 1279
+$widescreen: 'widescreen';        // 1280 ~ ...
+
+// The `$breakpoints` list is used to build our media queries.
+$grid-breakpoints: (
+  $xs '(max-width: #{breakpoint($grid-small, -1px)})',
+  $small-up '(min-width: #{breakpoint($grid-small)})',
+  $small '(min-width: #{breakpoint($grid-small)}) and (max-width: #{breakpoint($grid-medium, -1px)})',
+  $small-down '(max-width: #{breakpoint($grid-medium, -1px)})',
+  $medium-up '(min-width: #{breakpoint($grid-medium)})',
+  $medium '(min-width: #{breakpoint($grid-medium)}) and (max-width: #{breakpoint($grid-large, -1px)})',
+  $medium-down '(max-width: #{breakpoint($grid-large, -1px)})',
+  $large-up '(min-width: #{breakpoint($grid-large)})',
+  $large '(min-width: #{breakpoint($grid-large)}) and (max-width: #{breakpoint($grid-widescreen, -1px)})',
+  $large-down '(max-width: #{breakpoint($grid-widescreen, -1px)})',
+  $medium-large '(min-width: #{breakpoint($grid-medium)}) and (max-width: #{breakpoint($grid-widescreen, -1px)})',
+  $widescreen '(min-width: #{breakpoint($grid-widescreen)})'
+);
+
+/*================ Media Query Mixin ================*/
+@mixin media-query($media-query) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $grid-breakpoints {
+    $name: nth($breakpoint, 1);
+    $declaration: nth($breakpoint, 2);
+
+    @if $media-query == $name and $declaration {
+      $breakpoint-found: true;
+
+      @media only screen and #{$declaration} {
+        @content;
+      }
+    }
+  }
+
+  @if $breakpoint-found == false {
+    @warn 'Breakpoint "#{$media-query}" does not exist';
+  }
+}
