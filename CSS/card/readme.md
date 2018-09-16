@@ -1,4 +1,4 @@
-## A highly reusable/scalable `card component`
+## A reusable/scalable `card component`
 
 `card--overlay` is my mostly used. It works great when you need:
 - Background color/Background image with text overlay
